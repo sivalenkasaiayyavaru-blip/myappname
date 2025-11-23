@@ -43,10 +43,8 @@
 
 
 
-const mysql = require("mysql2");
-const fs = require("fs");
-require("dotenv").config();
-
+const mysql = require('mysql2');
+require('dotenv').config();
 
 const connection = mysql.createConnection({
   host: process.env.DB_HOST,
@@ -54,17 +52,12 @@ const connection = mysql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  ssl: {
-    ca: fs.readFileSync("isrgrootx1.pem")   // must upload to your repo root
-  }
+  ssl: { rejectUnauthorized: false } // critical for TiDB Cloud
 });
 
-connection.connect((err) => {
-  if (err) {
-    console.error("❌ Database connection failed:", err);
-  } else {
-    console.log("✅ Connected to TiDB successfully!");
-  }
+connection.connect(err => {
+  if (err) console.error('❌ DB connection failed:', err.message);
+  else console.log('✅ Connected to TiDB successfully!');
 });
 
 module.exports = connection;
