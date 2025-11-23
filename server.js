@@ -33,9 +33,14 @@ app.use("/", loginRoutes);
 
 // })
 
-app.listen(4600, () => {
-    console.log('server is running on port 4600')
-})
+// app.listen(4600, () => {
+//     console.log('server is running on port 4600')
+// })
+const PORT = process.env.PORT || 4600;
+
+app.listen(PORT, () => {
+    console.log("Server running on port " + PORT);
+});
 
 app.get('/', (req, res) => {
     res.send('This is test case')
