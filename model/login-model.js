@@ -6,7 +6,8 @@ module.exports = {
         console.log('loginMdl:', values)
         const sql = `
             SELECT username, password FROM users WHERE username=? and password=?`;
-
-        db.query(sql, [values.user_name, values.password], callback); // callback(err, results)
+        params = [values.user_name, values.password]
+        console.log('loginMdl params: ',params)
+        db.query(sql, params, callback); // callback(err, results)
     }
 }

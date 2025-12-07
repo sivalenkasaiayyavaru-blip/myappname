@@ -131,7 +131,7 @@ app.get('/test', (req, res) => {
 });
 
 // Start server on Render port
-const PORT = process.env.DB_PORT;
+const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
