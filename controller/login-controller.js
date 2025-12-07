@@ -4,7 +4,7 @@ exports.loginctrl = (req, res) => {
     data = req.body
     console.log('loginctrl:', data)
     login_model.loginMdl(data, (err, results) => {
-        console.log('results length',results.length)
+        console.log('results length',results)
         if (err) {
             console.log('Error fetching items:', err)
             return res.status(500).json({ message: "Database Error" })

@@ -43,6 +43,26 @@
 
 
 
+// const mysql = require('mysql2');
+// require('dotenv').config();
+
+// const connection = mysql.createConnection({
+//   host: process.env.DB_HOST,
+//   port: process.env.DB_PORT,
+//   user: process.env.DB_USER,
+//   password: process.env.DB_PASSWORD,
+//   database: process.env.DB_DATABASE,
+//   ssl: { rejectUnauthorized: false } // critical for TiDB Cloud
+// });
+
+// connection.connect(err => {
+//   if (err) console.error('❌ DB connection failed:', err.message);
+//   else console.log('✅ Connected to TiDB successfully!');
+// });
+
+// module.exports = connection;
+
+
 const mysql = require('mysql2');
 require('dotenv').config();
 
@@ -52,12 +72,15 @@ const connection = mysql.createConnection({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  ssl: { rejectUnauthorized: false } // critical for TiDB Cloud
+  ssl: {rejectUnauthorized:true}
 });
 
 connection.connect(err => {
-  if (err) console.error('❌ DB connection failed:', err.message);
-  else console.log('✅ Connected to TiDB successfully!');
+  if (err) {
+    console.error('❌ DB connection failed:', err.message);
+  } else {
+    console.log('✅ Connected to DB successfully!');
+  }
 });
 
 module.exports = connection;
