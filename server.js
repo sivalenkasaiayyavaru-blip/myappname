@@ -139,8 +139,13 @@ app.listen(PORT, () => {
 
 app.get("/db-status", async (req, res) => {
   try {
-    const [rows] = await db.execute("SELECT NOW() AS time");
-    res.json({ status: "connected", time: rows[0].time });
+    connection.query("SELECT NOW() AS time", (err, results) => {
+      if (err) {
+        return res.json({ status: "disconnected", error: err.message });
+      }
+
+      res.json({ status: "connected", time: results[0].time });
+    });
   } catch (err) {
     res.json({ status: "disconnected", error: err.message });
   }
