@@ -131,7 +131,17 @@ app.get('/test', (req, res) => {
 });
 
 // Start server on Render port
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.DB_PORT;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+
+app.get("/db-status", async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT NOW() AS time");
+    res.json({ status: "connected", time: rows[0].time });
+  } catch (err) {
+    res.json({ status: "disconnected", error: err.message });
+  }
 });
